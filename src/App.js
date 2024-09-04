@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+// src/App.js
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
 const App = () => {
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState('');
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State to control success popup visibility
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // State to control error popup visibility
+  const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -16,14 +20,24 @@ const App = () => {
     formData.append('pdf', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      await axios.post('http://localhost:5000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setMessage(response.data.message);
+
+      // Show success popup on successful upload
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+      }, 3000);
     } catch (error) {
-      setMessage('Failed to upload file.');
+      console.error('Failed to upload file.');
+      setErrorMessage('Failed to upload file. Please try again.'); // Set the error message
+      setShowErrorPopup(true); // Show error popup
+      setTimeout(() => {
+        setShowErrorPopup(false);
+      }, 3000);
     }
   };
 
@@ -38,8 +52,23 @@ const App = () => {
           <input type="file" accept="application/pdf" onChange={handleFileChange} />
           <button type="submit">Upload PDF</button>
         </form>
-        {message && <p className="message">{message}</p>}
       </div>
+
+      {/* Success Popup Notification */}
+      {showSuccessPopup && (
+        <div className="popup success">
+          <p>File uploaded successfully!</p>
+          <div className="popup-timer"></div>
+        </div>
+      )}
+
+      {/* Error Popup Notification */}
+      {showErrorPopup && (
+        <div className="popup error">
+          <p>{errorMessage}</p>
+          <div className="popup-timer"></div>
+        </div>
+      )}
 
       <footer className="footer">
         <p>&copy; 2024 PDF Uploader</p>

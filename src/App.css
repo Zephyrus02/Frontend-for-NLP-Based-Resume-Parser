@@ -1,3 +1,5 @@
+/* src/App.css */
+
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -50,15 +52,11 @@ body {
   cursor: pointer;
   color: #000;
   font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .upload-form button:hover {
   background-color: #ffcc00;
-}
-
-.message {
-  margin-top: 1rem;
-  color: #ffdd00;
 }
 
 .footer {
@@ -66,4 +64,49 @@ body {
   text-align: center;
   padding: 1rem;
   color: #ffffff;
+}
+
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 250px;
+  opacity: 0.9;
+}
+
+.popup p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.popup-timer {
+  height: 4px;
+  background-color: #ffdd00;
+  margin-top: 0.5rem;
+  animation: shrink 3s linear forwards;
+}
+
+/* Success Popup Styling */
+.popup.success {
+  background-color: #333; /* Dark background for success */
+}
+
+/* Error Popup Styling */
+.popup.error {
+  background-color: #b00020; /* Red background for errors */
+}
+
+/* Animation for the popup timer bar */
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
 }
