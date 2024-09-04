@@ -142,6 +142,25 @@ body {
   text-align: center;
   padding: 1rem;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  opacity: 0.8;
 }
 
 .popup {
