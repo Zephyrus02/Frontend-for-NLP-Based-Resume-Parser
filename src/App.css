@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+.navbar {
+  background-color: #1e1e1e;
+  padding: 1rem;
+  color: #ffdd00;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.upload-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.upload-form input {
+  border: 1px solid #ffdd00;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.upload-form button {
+  background-color: #ffdd00;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+
+.upload-form button:hover {
+  background-color: #ffcc00;
+}
+
+.message {
+  margin-top: 1rem;
+  color: #ffdd00;
+}
+
+.footer {
+  background-color: #1e1e1e;
+  text-align: center;
+  padding: 1rem;
+  color: #ffffff;
 }
