@@ -89,11 +89,47 @@ body {
   cursor: pointer;
   color: #000;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
 .upload-button:hover {
-  background-color: #ffcc00;
+  background-image: linear-gradient(45deg, #ffdd00, #ffcc00);
+  transform: scale(1.05);
+}
+
+.upload-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.upload-button:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
 }
 
 .cards-section {
@@ -116,13 +152,28 @@ body {
   flex-direction: column;
   opacity: 0; /* Start with invisible cards */
   animation: fadeIn 0.5s forwards; /* Apply fade-in animation */
+
+  box-shadow: 
+    8px 8px 16px #0f0f0f,
+    -8px -8px 16px #2d2d2d;
+  border: 1px solid #2a2a2a;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    12px 12px 20px #0f0f0f,
+    -12px -12px 20px #2d2d2d;
 }
 
 .card-title {
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-size: 1.5rem;
   color: #ffdd00;
+  text-shadow: 1px 1px 2px #000000;
 }
+
 
 .card-details {
   margin-top: 1rem;
@@ -131,10 +182,17 @@ body {
 .card-detail {
   margin-bottom: 0.5rem;
   font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #252525;
+  box-shadow: 
+    inset 2px 2px 5px #1a1a1a,
+    inset -2px -2px 5px #303030;
 }
 
 .card-detail strong {
   color: #ffdd00;
+  text-shadow: 1px 1px 2px #000000;
 }
 
 .footer {
@@ -183,19 +241,20 @@ body {
 
 .popup-timer {
   height: 4px;
-  background-color: #ffdd00;
+  border-radius: 10px;
+  background-color: rgba(255, 221, 0);
   margin-top: 0.5rem;
   animation: shrink 3s linear forwards;
 }
 
 /* Success Popup Styling */
 .popup.success {
-  background-color: #333; /* Dark background for success */
+  background-color: rgba(0, 128, 0, 0.5); /* Green background with 70% opacity */
 }
 
 /* Error Popup Styling */
 .popup.error {
-  background-color: #b00020; /* Red background for errors */
+  background-color: rgba(176, 0, 32, 0.4);
 }
 
 @keyframes shrink {

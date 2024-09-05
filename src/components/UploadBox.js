@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const UploadBox = ({ filename, onFileChange, onDrop, onClick }) => {
+const UploadBox = ({ filename, onFileChange, onDrop }) => {
   const fileInputRef = useRef(null);
 
   const handleBoxClick = () => {
@@ -14,7 +14,7 @@ const UploadBox = ({ filename, onFileChange, onDrop, onClick }) => {
       className="upload-box"
       onDrop={onDrop}
       onDragOver={(e) => e.preventDefault()}
-      onClick={handleBoxClick} // Use handleBoxClick for box click
+      onClick={handleBoxClick}
     >
       <div className="upload-icon">
         <svg
@@ -40,9 +40,9 @@ const UploadBox = ({ filename, onFileChange, onDrop, onClick }) => {
         type="file"
         accept="application/pdf"
         onChange={onFileChange}
-        ref={fileInputRef} // Attach ref to the file input
+        ref={fileInputRef}
         className="file-input"
-        style={{ display: 'none' }} // Hide the file input
+        style={{ display: 'none' }}
       />
     </div>
   );
