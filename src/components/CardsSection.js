@@ -10,6 +10,7 @@ const CardsSection = ({ cards = [] }) => {
           company={card.company}
           jobRole={card.job_title}
           location={card.location}
+          link={card.job_url}
           index={index}
         />
       ))}

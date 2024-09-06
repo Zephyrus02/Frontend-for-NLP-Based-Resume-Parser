@@ -14,7 +14,7 @@ const App = () => {
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showCards, setShowCards] = useState(false);
-  const [cards, setCards] = useState([]); // Initialize as an empty array
+  const [cards, setCards] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -49,9 +49,8 @@ const App = () => {
         },
       });
 
-      // Display success popup and show cards with fetched data
       setShowSuccessPopup(true);
-      setCards(response.data.jobs || []); // Ensure it's an array
+      setCards(response.data.jobs || []);
       setShowCards(true);
       setTimeout(() => setShowSuccessPopup(false), 3000);
     } catch (error) {
@@ -65,6 +64,10 @@ const App = () => {
     <div className="app">
       <Navbar />
       <div className="container">
+        <section className="hero-section">
+          <h1 className="hero-title">Make Your Job Search <span>Easier</span></h1>
+          <p className="hero-subtitle">Upload your resume and find matching job opportunities</p>
+        </section>
         <form onSubmit={handleUpload} className="upload-form">
           <UploadBox filename={filename} onFileChange={handleFileChange} onDrop={handleDrop} />
           <button type="submit" className="upload-button">

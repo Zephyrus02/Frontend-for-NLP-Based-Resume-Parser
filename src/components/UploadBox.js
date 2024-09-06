@@ -23,16 +23,20 @@ const UploadBox = ({ filename, onFileChange, onDrop }) => {
           height="60"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#ffdd00"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="feather feather-file"
         >
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"></path>
-          <line x1="14" y1="2" x2="14" y2="8"></line>
-          <line x1="6" y1="14" x2="18" y2="14"></line>
-          <line x1="6" y1="18" x2="18" y2="18"></line>
+          <defs>
+            <linearGradient id="fileGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="var(--accent-purple)" />
+              <stop offset="100%" stopColor="var(--accent-pink)" />
+            </linearGradient>
+          </defs>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="url(#fileGradient)" />
+          <polyline points="14 2 14 8 20 8" stroke="url(#fileGradient)" />
+          <line x1="12" y1="18" x2="12" y2="12" stroke="url(#fileGradient)" />
+          <line x1="9" y1="15" x2="15" y2="15" stroke="url(#fileGradient)" />
         </svg>
       </div>
       <p>{filename}</p>
