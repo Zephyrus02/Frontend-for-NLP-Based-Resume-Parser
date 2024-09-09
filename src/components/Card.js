@@ -1,16 +1,26 @@
-import React from 'react';
+import React from "react";
 
-const Card = ({ company, jobRole, location, link, index }) => {
+const Card = ({ company, jobRole, location, link, logo, index }) => {
   return (
-    <div className="card">
+    <div className="card" key={index}>
       <div className="card-icon">
-        <span>{company.charAt(0)}</span>
+        {logo ? (
+          <img
+            src={logo}
+            alt={`${company} logo`}
+            className="company-logo"
+          />
+        ) : (
+          <span>{company.charAt(0)}</span>
+        )}
       </div>
-      <h3 className="card-title">{company}</h3>
-      <p className="card-subtitle">{jobRole}</p>
-      <div className="card-detail">{location}</div>
+      <h3 className="card-title">{jobRole}</h3>
+      <p className="card-subtitle">{company}</p>
+      <p className="card-detail">{location}</p>
       <div className="card-link">
-        <a href={link} target="_blank" rel="noopener noreferrer">Learn More →</a>
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          View Job →
+        </a>
       </div>
     </div>
   );

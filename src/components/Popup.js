@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Popup = ({ message, type, isVisible, onClose }) => {
-	const [progress, setProgress] = useState(0);
-	const [isExiting, setIsExiting] = useState(false);
+const CustomToast = ({ message, type }) => (
+  <div className={`popup ${type}`}>
+    <p>{message}</p>
+    <div className="timer-line"></div>
+  </div>
+);
 
-	useEffect(() => {
-		if (isVisible) {
-			setIsExiting(false);
-			setProgress(0);
-			const timer = setInterval(() => {
-				setProgress((oldProgress) => {
-					if (oldProgress === 100) {
-						clearInterval(timer);
-						setIsExiting(true);
-						setTimeout(onClose, 300); // Wait for exit animation to complete
-						return 100;
-					}
-					return oldProgress + 1;
-				});
-			}, 30); // 3000ms / 100 = 30ms per step
+export const showToast = (message, type) => {
+  toast(<CustomToast message={message} type={type} />, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+  });
+};
 
-			return () => {
-				clearInterval(timer);
-			};
-		}
-	}, [isVisible, onClose]);
-
-	if (!isVisible && !isExiting) return null;
-
-	return (
-		<div className={`popup ${type} ${isExiting ? "exiting" : ""}`}>
-			<p>{message}</p>
-			<div className="timer-line" style={{ width: `${progress}%` }}></div>
-		</div>
-	);
+const Popup = () => {
+  return (
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable={false}
+      pauseOnHover
+      theme="dark"
+    />
+  );
 };
 
 export default Popup;

@@ -2,8 +2,8 @@
   --bg-dark: #0f0f1a;
   --text-light: #ffffff;
   --text-dim: #8b8b9e;
-  --accent-purple: #8A2BE2;
-  --accent-pink: #FF69B4;
+  --accent-purple: #2566af;
+  --accent-pink: #234c80;
   --card-bg: #1a1a2e;
 }
 
@@ -19,19 +19,15 @@ body {
 }
 
 .popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
   padding: 15px 20px;
-  border-radius: 10px;
   color: white;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
   max-width: 300px;
   animation: slideIn 0.3s ease-out;
   overflow: hidden;
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  border-radius: 10px;
+  position: relative; /* Add this line */
 }
 
 .popup.success {
@@ -46,9 +42,19 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
+  right: 0; /* Add this line */
   height: 3px;
   background-color: rgba(255, 255, 255, 0.7);
-  transition: width 0.1s linear;
+  animation: timerProgress 3s linear;
+}
+
+@keyframes timerProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
 }
 
 @keyframes slideIn {
@@ -324,4 +330,23 @@ body {
   50% {
     transform: translateY(-5px);
   }
+}
+
+/* Toast styles */
+.Toastify__toast-container {
+  top: 20px;
+  right: 20px;
+}
+
+.Toastify__toast {
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
 }

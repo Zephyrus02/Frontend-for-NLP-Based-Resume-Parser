@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
+import Popup, { showToast } from './components/Popup';
 import Navbar from "./components/Navbar";
 import UploadBox from "./components/UploadBox";
-import Popup from "./components/Popup";
 import Footer from "./components/Footer";
 import CardsSection from "./components/CardsSection";
 import "./App.css";
@@ -10,9 +10,6 @@ import "./App.css";
 const App = () => {
   const [file, setFile] = useState(null);
   const [filename, setFilename] = useState("Drag files here or click to browse");
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [showErrorPopup, setShowErrorPopup] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [showCards, setShowCards] = useState(false);
   const [cards, setCards] = useState([]);
   const fileInputRef = useRef(null);
@@ -33,9 +30,7 @@ const App = () => {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) {
-      setErrorMessage("No file selected.");
-      setShowErrorPopup(true);
-      setTimeout(() => setShowErrorPopup(false), 3000);
+      showToast("No file selected.", "error");
       return;
     }
 
@@ -49,14 +44,18 @@ const App = () => {
         },
       });
 
-      setShowSuccessPopup(true);
-      setCards(response.data.jobs || []);
+      showToast("File uploaded successfully!", "success");
+
+      // Combine job data with logos from the response
+      const jobDataWithLogos = response.data.jobs.map((job) => ({
+        ...job,
+        logo: response.data.companyLogos.find((logo) => logo.company === job.company)?.svgUrl || "",
+      }));
+
+      setCards(jobDataWithLogos);
       setShowCards(true);
-      setTimeout(() => setShowSuccessPopup(false), 3000);
     } catch (error) {
-      setErrorMessage("Failed to upload file. Please try again.");
-      setShowErrorPopup(true);
-      setTimeout(() => setShowErrorPopup(false), 3000);
+      showToast("Failed to upload file. Please try again.", "error");
     }
   };
 
@@ -78,9 +77,7 @@ const App = () => {
         {showCards && <CardsSection cards={cards} />}
       </div>
 
-      <Popup message="File uploaded successfully!" type="success" isVisible={showSuccessPopup} />
-      <Popup message={errorMessage} type="error" isVisible={showErrorPopup} />
-
+      <Popup />
       <Footer />
     </div>
   );
