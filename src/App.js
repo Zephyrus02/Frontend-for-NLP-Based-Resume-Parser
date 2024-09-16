@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import Popup, { showToast } from "./components/Popup";
 import Navbar from "./components/Navbar";
 import UploadBox from "./components/UploadBox";
@@ -7,6 +8,17 @@ import Footer from "./components/Footer";
 import CardsSection from "./components/CardsSection";
 import "./App.css";
 import FilterOptions from "./components/FilterOptions";
+import {
+	BrowserRouter as Router,
+	Route,
+	Routes,
+	Navigate,
+	useNavigate,
+} from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
 	const [file, setFile] = useState(null);
@@ -22,8 +34,34 @@ const App = () => {
 		listDate: "",
 	});
 	const [suitedJobRole, setSuitedJobRole] = useState("");
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-	// Handles file input change
+	useEffect(() => {
+		checkAuthStatus();
+	}, []);
+
+	const checkAuthStatus = async () => {
+		try {
+			const response = await axios.get("http://localhost:5000/check-auth");
+			setIsAuthenticated(response.data.isAuthenticated);
+		} catch (error) {
+			setIsAuthenticated(false);
+		}
+	};
+
+	const handleLogin = () => {
+		setIsAuthenticated(true);
+	};
+
+	const handleLogout = async () => {
+		try {
+			await axios.post("http://localhost:5000/logout");
+			setIsAuthenticated(false);
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
+	};
+
 	const handleFileChange = (e) => {
 		const selectedFile = e.target.files[0];
 		setFile(selectedFile);
@@ -32,7 +70,6 @@ const App = () => {
 		);
 	};
 
-	// Handles file drop event
 	const handleDrop = (e) => {
 		e.preventDefault();
 		const droppedFile = e.dataTransfer.files[0];
@@ -42,7 +79,6 @@ const App = () => {
 		);
 	};
 
-	// Handles file upload
 	const handleUpload = async (e) => {
 		e.preventDefault();
 		if (!file) {
@@ -54,86 +90,102 @@ const App = () => {
 		formData.append("pdf", file);
 
 		try {
+			const token = localStorage.getItem("token");
 			const response = await axios.post(
 				"http://localhost:5000/upload",
 				formData,
 				{
 					headers: {
 						"Content-Type": "multipart/form-data",
+						Authorization: `Bearer ${token}`,
 					},
 				}
 			);
 
 			showToast("File uploaded successfully!", "success");
 
-			// Set job data from the server response
-			setCards(response.data.jobs); // Set cards to the jobs returned by the server
+			setCards(response.data.jobs);
 			setShowCards(true);
-			setFilteredCards(response.data.jobs); // Set filtered cards to the jobs returned by the server
-			setSuitedJobRole(response.data.job_title); // Add this line
+			setFilteredCards(response.data.jobs);
+			setSuitedJobRole(response.data.job_title);
 		} catch (error) {
+			console.error("Upload error:", error);
 			showToast("Failed to upload file. Please try again.", "error");
 		}
 	};
 
 	const handleFilterChange = (newFilters) => {
 		setFilters(newFilters);
+		// Apply filters to cards
 		const filtered = cards.filter((card) => {
 			return (
 				card.company.toLowerCase().includes(newFilters.company.toLowerCase()) &&
 				card.location
 					.toLowerCase()
 					.includes(newFilters.location.toLowerCase()) &&
-				(newFilters.listDate === "" || card.list_date === newFilters.listDate)
+				(newFilters.listDate === "" || card.list_date >= newFilters.listDate)
 			);
 		});
 		setFilteredCards(filtered);
 	};
 
 	return (
-		<div className="app">
-			<Navbar />
-			<div className="container">
-				<section className="hero-section">
-					<h1 className="hero-title">
-						Make Your Job Search <span>Easier</span>
-					</h1>
-					<p className="hero-subtitle">
-						Upload your resume and find matching job opportunities
-					</p>
-				</section>
-				<form onSubmit={handleUpload} className="upload-form">
-					<UploadBox
-						filename={filename}
-						onFileChange={handleFileChange}
-						onDrop={handleDrop}
-					/>
-					<button type="submit" className="upload-button">
-						Upload PDF
-					</button>
-				</form>
+		<Router>
+			<div className="app">
+				<Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+				<Routes>
+					<Route path="/login" element={<Login onLogin={handleLogin} />} />
+					<Route path="/register" element={<Register />} />
+					<Route
+						path="/"
+						element={
+							<div className="container">
+								<section className="hero-section">
+									<h1 className="hero-title">
+										Make Your Job Search <span>Easier</span>
+									</h1>
+									<p className="hero-subtitle">
+										Upload your resume and find matching job opportunities
+									</p>
+								</section>
+								<form onSubmit={handleUpload} className="upload-form">
+									<UploadBox
+										filename={filename}
+										onFileChange={handleFileChange}
+										onDrop={handleDrop}
+										isAuthenticated={isAuthenticated}
+									/>
+									{isAuthenticated && (
+										<button type="submit" className="upload-button">
+											Upload PDF
+										</button>
+									)}
+								</form>
 
-				{showCards && (
-					<>
-						{suitedJobRole && (
-							<div className="suited-job-role">
-								<h2>
-									<span>{suitedJobRole}</span>
-								</h2>
+								{showCards && (
+									<>
+										{suitedJobRole && (
+											<div className="suited-job-role">
+												<h2>
+													<span>{suitedJobRole}</span>
+												</h2>
+											</div>
+										)}
+										<FilterOptions
+											filters={filters}
+											onFilterChange={handleFilterChange}
+										/>
+										<CardsSection cards={filteredCards} />
+									</>
+								)}
 							</div>
-						)}
-						<FilterOptions
-							filters={filters}
-							onFilterChange={handleFilterChange}
-						/>
-							<CardsSection cards={filteredCards} />
-					</>
-				)}
+						}
+					/>
+				</Routes>
+				<Popup />
+				<Footer />
 			</div>
-
-			<Popup />
-			<Footer />
-		</div>
+		</Router>
 	);
 };
 
