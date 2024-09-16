@@ -6,12 +6,19 @@ import UploadBox from "./components/UploadBox";
 import Footer from "./components/Footer";
 import CardsSection from "./components/CardsSection";
 import "./App.css";
+import FilterOptions from "./components/FilterOptions";
 
 const App = () => {
   const [file, setFile] = useState(null);
   const [filename, setFilename] = useState("Drag files here or click to browse");
   const [showCards, setShowCards] = useState(false);
   const [cards, setCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
+  const [filters, setFilters] = useState({
+    company: "",
+    location: "",
+    listDate: "",
+  });
 
   // Handles file input change
   const handleFileChange = (e) => {
@@ -51,9 +58,22 @@ const App = () => {
       // Set job data from the server response
       setCards(response.data.jobs);  // Set cards to the jobs returned by the server
       setShowCards(true);
+      setFilteredCards(response.data.jobs);  // Set filtered cards to the jobs returned by the server
     } catch (error) {
       showToast("Failed to upload file. Please try again.", "error");
     }
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    const filtered = cards.filter((card) => {
+      return (
+        card.company.toLowerCase().includes(newFilters.company.toLowerCase()) &&
+        card.location.toLowerCase().includes(newFilters.location.toLowerCase()) &&
+        (newFilters.listDate === "" || card.list_date === newFilters.listDate)
+      );
+    });
+    setFilteredCards(filtered);
   };
 
   return (
@@ -79,7 +99,12 @@ const App = () => {
           </button>
         </form>
 
-        {showCards && <CardsSection cards={cards} />}
+        {showCards && (
+          <>
+            <FilterOptions filters={filters} onFilterChange={handleFilterChange} />
+            <CardsSection cards={filteredCards} />
+          </>
+        )}
       </div>
 
       <Popup />

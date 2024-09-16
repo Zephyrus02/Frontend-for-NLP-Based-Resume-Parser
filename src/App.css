@@ -364,3 +364,67 @@ body {
   padding: 0;
   margin: 0;
 }
+
+/* Add these styles at the end of your existing App.css file */
+
+.filter-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.filter-toggle {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  color: var(--text-light);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.filter-options input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--accent-purple);
+  border-radius: 0.5rem;
+  background-color: var(--card-bg);
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.filter-options input::placeholder {
+  color: var(--text-dim);
+}
+
+.filter-options input:focus {
+  outline: none;
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 0 2px rgba(35, 76, 128, 0.1);
+}
+
+@media (max-width: 768px) {
+  .filter-options {
+    flex-direction: column;
+  }
+
+  .filter-options input {
+    width: 100%;
+  }
+}
