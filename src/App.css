@@ -365,7 +365,7 @@ body {
   margin: 0;
 }
 
-/* Add these styles at the end of your existing App.css file */
+/* Add these styles to your existing App.css file */
 
 .filter-container {
   width: 100%;
@@ -469,4 +469,27 @@ body {
   .filter-buttons {
     width: 100%;
   }
+}
+
+/* Add these styles to your existing App.css file */
+
+.no-jobs-message {
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.no-jobs-message p {
+  margin: 0.5rem 0;
+  color: var(--text-dim);
+}
+
+.no-jobs-message p:first-child {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
 }
