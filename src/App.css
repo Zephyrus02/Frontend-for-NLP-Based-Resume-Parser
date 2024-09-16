@@ -493,3 +493,45 @@ body {
   color: var(--text-light);
   margin-bottom: 1rem;
 }
+
+.suited-job-role {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  border: 1px solid rgba(37, 102, 175, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.suited-job-role:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.suited-job-role h2 {
+  font-size: 1.8rem;
+  color: var(--text-light);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suited-job-role h2::before {
+  content: "Most Suited Job Role";
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.suited-job-role h2 span {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
