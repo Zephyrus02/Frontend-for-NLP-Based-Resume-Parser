@@ -396,6 +396,10 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filter-options input {
@@ -404,7 +408,7 @@ body {
   padding: 0.75rem 1rem;
   border: 1px solid var(--accent-purple);
   border-radius: 0.5rem;
-  background-color: var(--card-bg);
+  background-color: var(--bg-dark);
   color: var(--text-light);
   font-size: 1rem;
 }
@@ -419,12 +423,50 @@ body {
   box-shadow: 0 0 0 2px rgba(35, 76, 128, 0.1);
 }
 
+.filter-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.apply-filter,
+.clear-filter {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.apply-filter {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  color: var(--text-light);
+}
+
+.clear-filter {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--accent-purple);
+}
+
+.apply-filter:hover,
+.clear-filter:hover {
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .filter-options {
     flex-direction: column;
   }
 
-  .filter-options input {
+  .filter-options input,
+  .filter-buttons {
     width: 100%;
   }
 }
