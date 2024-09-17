@@ -7,6 +7,531 @@
   --card-bg: #1a1a2e;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1 0 auto;
+}
+
+.popup {
+  padding: 15px 20px;
+  color: white;
+  font-weight: bold;
+  max-width: 300px;
+  animation: slideIn 0.3s ease-out;
+  overflow: hidden;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  border-radius: 10px;
+  position: relative; /* Add this line */
+}
+
+.popup.success {
+  background-color: #4CAF50;
+}
+
+.popup.error {
+  background-color: #f44336;
+}
+
+.timer-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0; /* Add this line */
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.7);
+  animation: timerProgress 3s linear;
+}
+
+@keyframes timerProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.navbar {
+  background-color: transparent;
+  margin: 1rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  width: 100%;
+  max-width: auto;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 1rem;
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  margin: 1rem;
+}
+
+.upload-form {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-box {
+  width: 100%;
+  height: 250px;
+  border: 2px dashed var(--accent-purple);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: rgba(142, 91, 240, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.upload-box:hover {
+  background-color: rgba(142, 91, 240, 0.1);
+  border-color: var(--accent-pink);
+}
+
+.upload-icon {
+  font-size: 4rem;
+  color: var(--accent-purple);
+  margin-bottom: 1.5rem;
+  transition: transform 0.5s ease;
+}
+
+.upload-box:hover .upload-icon {
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.upload-text {
+  color: var(--text-dim);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.upload-button {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  color: var(--text-light);
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  margin-top: 1.5rem;
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+}
+
+.cards-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  margin: 4rem auto 0;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: calc(33.333% - 1.333rem);
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: var(--accent-purple);
+  background-color: rgba(37, 102, 175, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.card:hover .card-icon {
+  color: var(--accent-pink);
+  background-color: rgba(35, 76, 128, 0.1);
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.card-subtitle {
+  font-size: 1.2rem;
+  color: var(--accent-purple);
+  margin-bottom: 0.75rem;
+}
+
+.card-detail {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+.card-link a {
+  color: var(--accent-purple);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.card-link a:hover {
+  color: var(--accent-pink);
+}
+
+@media (max-width: 1400px) {
+  .card {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: 100%;
+  }
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: var(--card-bg);
+  padding: 10px;
+  text-align: center;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-content {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.footer p{
+  padding-top: 1rem;
+  padding-left: 5rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-icons {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-icons a {
+  color: var(--text-dim);
+  transition: color 0.3s, transform 0.3s;
+  font-size: 1.5rem;
+  display: inline-block;
+}
+
+.social-icons a:hover {
+  color: var(--text-light);
+  animation: bounce 0.5s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Toast styles */
+.Toastify__toast-container {
+  top: 20px;
+  right: 20px;
+}
+
+.Toastify__toast {
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+}
+
+/* Add these styles to your existing App.css file */
+
+.filter-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.filter-toggle {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  color: var(--text-light);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-options input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--accent-purple);
+  border-radius: 0.5rem;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.filter-options input::placeholder {
+  color: var(--text-dim);
+}
+
+.filter-options input:focus {
+  outline: none;
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 0 2px rgba(35, 76, 128, 0.1);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.apply-filter,
+.clear-filter {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.apply-filter {
+  background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));
+  color: var(--text-light);
+}
+
+.clear-filter {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--accent-purple);
+}
+
+.apply-filter:hover,
+.clear-filter:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .filter-options {
+    flex-direction: column;
+  }
+
+  .filter-options input,
+  .filter-buttons {
+    width: 100%;
+  }
+}
+
+/* Add these styles to your existing App.css file */
+
+.no-jobs-message {
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.no-jobs-message p {
+  margin: 0.5rem 0;
+  color: var(--text-dim);
+}
+
+.no-jobs-message p:first-child {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.suited-job-role {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  border: 1px solid rgba(37, 102, 175, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.suited-job-role:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+:root {
+  --bg-dark: #0f0f1a;
+  --text-light: #ffffff;
+  --text-dim: #8b8b9e;
+  --accent-purple: #2566af;
+  --accent-pink: #234c80;
+  --card-bg: #1a1a2e;
+}
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -599,6 +1124,7 @@ body {
 .navbar-links {
   display: flex;
   gap: 1rem;
+  margin-left: auto; /* This pushes the links to the right */
 }
 
 .auth-button {

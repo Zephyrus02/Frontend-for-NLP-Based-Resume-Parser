@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import Popup, { showToast } from "./components/Popup";
 import Navbar from "./components/Navbar";
 import UploadBox from "./components/UploadBox";
@@ -12,8 +11,6 @@ import {
 	BrowserRouter as Router,
 	Route,
 	Routes,
-	Navigate,
-	useNavigate,
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -133,55 +130,57 @@ const App = () => {
 		<Router>
 			<div className="app">
 				<Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-				<Routes>
-					<Route path="/login" element={<Login onLogin={handleLogin} />} />
-					<Route path="/register" element={<Register />} />
-					<Route
-						path="/"
-						element={
-							<div className="container">
-								<section className="hero-section">
-									<h1 className="hero-title">
-										Make Your Job Search <span>Easier</span>
-									</h1>
-									<p className="hero-subtitle">
-										Upload your resume and find matching job opportunities
-									</p>
-								</section>
-								<form onSubmit={handleUpload} className="upload-form">
-									<UploadBox
-										filename={filename}
-										onFileChange={handleFileChange}
-										onDrop={handleDrop}
-										isAuthenticated={isAuthenticated}
-									/>
-									{isAuthenticated && (
-										<button type="submit" className="upload-button">
-											Upload PDF
-										</button>
-									)}
-								</form>
-
-								{showCards && (
-									<>
-										{suitedJobRole && (
-											<div className="suited-job-role">
-												<h2>
-													<span>{suitedJobRole}</span>
-												</h2>
-											</div>
-										)}
-										<FilterOptions
-											filters={filters}
-											onFilterChange={handleFilterChange}
+				<div className="main-content">
+					<Routes>
+						<Route path="/login" element={<Login onLogin={handleLogin} />} />
+						<Route path="/register" element={<Register />} />
+						<Route
+							path="/"
+							element={
+								<div className="container">
+									<section className="hero-section">
+										<h1 className="hero-title">
+											Make Your Job Search <span>Easier</span>
+										</h1>
+										<p className="hero-subtitle">
+											Upload your resume and find matching job opportunities
+										</p>
+									</section>
+									<form onSubmit={handleUpload} className="upload-form">
+										<UploadBox
+											filename={filename}
+											onFileChange={handleFileChange}
+											onDrop={handleDrop}
+											isAuthenticated={isAuthenticated}
 										/>
-										<CardsSection cards={filteredCards} />
-									</>
-								)}
-							</div>
-						}
-					/>
-				</Routes>
+										{isAuthenticated && (
+											<button type="submit" className="upload-button">
+												Upload PDF
+											</button>
+										)}
+									</form>
+
+									{showCards && (
+										<>
+											{suitedJobRole && (
+												<div className="suited-job-role">
+													<h2>
+														<span>{suitedJobRole}</span>
+													</h2>
+												</div>
+											)}
+											<FilterOptions
+												filters={filters}
+												onFilterChange={handleFilterChange}
+											/>
+											<CardsSection cards={filteredCards} />
+										</>
+									)}
+								</div>
+							}
+						/>
+					</Routes>
+				</div>
 				<Popup />
 				<Footer />
 			</div>
