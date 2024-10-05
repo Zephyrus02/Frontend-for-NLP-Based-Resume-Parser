@@ -1,70 +1,190 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🧑‍💼 Resume-Based Job and Course Recommendation App
 
-## Available Scripts
+Welcome to the **Resume-Based Job and Course Recommendation App**, an intelligent platform that analyzes your resume and provides job role suggestions, job listings via the **LinkedIn API**, and tailored course recommendations via the **Gemini API** to help boost your career.
 
-In the project directory, you can run:
+![App Screenshot](screenshot.png)
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Upload Resume**: Upload your resume in PDF format, and the app will predict a suitable job role for you.
+- **Job Listings**: Get matching job listings via the **LinkedIn API** based on the predicted job role, with advanced filtering options.
+- **Course Recommendations**: Tailored courses from the **Gemini API** to help enhance your skills and knowledge for the predicted job role.
+- **User Authentication**: Secure login and registration to track your recommendations.
+- **Clean UI**: A modern, easy-to-use interface for a seamless user experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Frontend**
+- [React.js](https://reactjs.org/) – For building a responsive, dynamic UI.
+- [React Router](https://reactrouter.com/) – For seamless page navigation.
+- [Axios](https://axios-http.com/) – To handle API requests.
+- HTML5 & CSS3 – For the app's structure and design.
 
-### `npm run build`
+### **Backend**
+- [Flask](https://flask.palletsprojects.com/) – For creating the API to handle file uploads, job and course recommendations.
+- [Python](https://www.python.org/) – For the backend logic and processing.
+- **LinkedIn API** – To fetch job listings for the predicted job role.
+- **Gemini API** – For providing tailored course recommendations.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Database**
+- [Firebase](https://firebase.google.com/) – For managing user authentication and session storage.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ⚙️ Installation and Setup
 
-### `npm run eject`
+Follow these steps to get the app running locally.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Clone the repository
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Install Dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Navigate to the project directory and run the following command:
 
-## Learn More
+```bash
+cd your-repo-name
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This will install all the necessary dependencies for the frontend.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Start the React Development Server
 
-### Code Splitting
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The app will now be running on `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+### 4. Set Up the Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Move into the backend folder and create a Python virtual environment:
 
-### Making a Progressive Web App
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # For Mac/Linux
+venv\Scripts\activate      # For Windows
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Install the Python dependencies:
 
-### Advanced Configuration
+```bash
+pip install -r requirements.txt
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Start the Flask server:
 
-### Deployment
+```bash
+python app.py
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The backend will be running on `http://127.0.0.1:5000`.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🔑 Environment Variables
+
+Make sure to set up your environment variables for both frontend and backend. For example:
+
+**Backend (Flask) `.env` file**:
+
+```
+SECRET_KEY=your_secret_key
+LINKEDIN_API_KEY=your_linkedin_api_key
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+**Frontend `.env` file**:
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+---
+
+## 🧑‍💻 How to Use
+
+### 1. Register/Login
+- Sign up for an account, or log in using your existing credentials.
+- Your session will be tracked securely using Firebase authentication.
+
+### 2. Upload Your Resume
+- Upload your resume in PDF format.
+- The app will analyze your resume and suggest a **Predicted Job Role** based on your qualifications and experience.
+
+### 3. Explore Matching Jobs
+- The app will display a list of job listings fetched from the **LinkedIn API** based on your predicted job role.
+- Use filters (company, location, date posted) to refine your job search.
+
+### 4. View Course Recommendations
+- Under the **Predicted Job Role**, you will see recommended courses from the **Gemini API**.
+- Each course includes a link to enroll or learn more.
+
+---
+
+## 📂 Project Structure
+
+```
+├── backend                # Flask API to handle resume processing and course/job recommendations
+│   ├── app.py             # Main backend file
+│   └── requirements.txt   # Backend dependencies
+├── frontend               # React frontend
+│   ├── public             # Public files like index.html
+│   └── src                # React source files
+│       ├── components     # Reusable components
+│       └── App.js         # Main frontend file
+└── .gitignore             # Git ignore file
+```
+
+---
+
+## 🎨 Screenshots
+
+![Upload Resume](screenshot1.png)
+*Upload your resume in PDF format.*
+
+![Job Listings](screenshot2.png)
+*View job listings fetched using the LinkedIn API.*
+
+![Course Recommendations](screenshot3.png)
+*Get course recommendations powered by the Gemini API.*
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. Fork the project.
+2. Create a feature branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
+
+---
+
+## 🛡️ License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 💬 Contact
+
+For any inquiries, feel free to reach out:
+
+- Your Name – [Your Email](mailto:youremail@example.com)
+- GitHub – [@your-username](https://github.com/your-username)
+- LinkedIn – [Your LinkedIn](https://linkedin.com/in/your-profile)
+
+---
+
+**Don't forget to ⭐ this repository if you found it useful!**
