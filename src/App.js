@@ -32,6 +32,7 @@ const App = () => {
 	});
 	const [suitedJobRole, setSuitedJobRole] = useState("");
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(false); // Add loading state
 
 	useEffect(() => {
 		checkAuthStatus();
@@ -83,6 +84,8 @@ const App = () => {
 			return;
 		}
 
+		setIsLoading(true); // Set loading state to true
+
 		const formData = new FormData();
 		formData.append("pdf", file);
 
@@ -108,6 +111,8 @@ const App = () => {
 		} catch (error) {
 			console.error("Upload error:", error);
 			showToast("Failed to upload file. Please try again.", "error");
+		} finally {
+			setIsLoading(false); // Set loading state to false
 		}
 	};
 
@@ -152,10 +157,11 @@ const App = () => {
 											onFileChange={handleFileChange}
 											onDrop={handleDrop}
 											isAuthenticated={isAuthenticated}
+											isLoading={isLoading} // Pass loading state
 										/>
 										{isAuthenticated && (
 											<button type="submit" className="upload-button">
-												Upload PDF
+												{isLoading ? "Processing..." : "Upload PDF"}
 											</button>
 										)}
 									</form>
