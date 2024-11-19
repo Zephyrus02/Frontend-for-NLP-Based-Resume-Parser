@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { showToast } from './Popup'; // Import showToast
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -11,9 +12,11 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:5000/register', { username, password });
+      showToast("Registration successful!", "success"); // Show success toast
       navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
+      showToast("Registration failed. Please try again.", "error"); // Show error toast
     }
   };
 
